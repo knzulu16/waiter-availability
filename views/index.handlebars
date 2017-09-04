@@ -1,0 +1,26 @@
+<form id="form" action="/waiter/{{username}}" method="post">
+  <div id="output">
+    {{output}}
+  </div>
+  <div id="checkBoxes">
+    <table id="table">
+      <tbody>
+        <thead>
+          <input type='checkbox' name="days" value="Sunday">Sunday</input>
+          <input type='checkbox' name="days" value="Monday">Monday</input>
+          <input type='checkbox' name="days" value="Tuesday">Tuesday</input>
+          <input type='checkbox' name="days" value="Wednsday">Wednsday</input>
+          <input type='checkbox' name="days" value="Thursday">Thursday</input>
+          <input type='checkbox' name="days" value="Friday">Friday</input>
+          <input type='checkbox' name="days" value="Saturday">Saturday</input>
+          <br></br>
+          <button type='submit' class="btn btn-primary" name="" value='workSchedule'>Submit</button>
+        </thead>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class='error'>
+      {{messages.error}}
+    </div>
+</form>

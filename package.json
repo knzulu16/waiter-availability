@@ -1,0 +1,30 @@
+{
+  "name": "waiter-availability",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knzulu16/waiter-availability.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/knzulu16/waiter-availability/issues"
+  },
+  "homepage": "https://github.com/knzulu16/waiter-availability#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
+    "express": "^4.15.4",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.5",
+    "handlebars": "^4.0.10",
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.11.9",
+    "nodemon": "^1.11.0"
+  }
+}

@@ -1,0 +1,29 @@
+body{
+  background-color: skyblue;
+}
+
+.days.solid{
+  border-style: solid;
+}
+h1{
+  background-color: skyblue;
+  width: 100%;
+}
+#header{
+  margin:auto;
+width: 100%;
+text-align: center;
+}
+
+#table{
+  margin-top: 10%;
+}
+#output{
+
+  margin-bottom: 5%;
+    margin-left: 30%;
+
+}
+#checkBoxes{
+  margin-left: 30%;
+}
