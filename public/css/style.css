@@ -1,13 +1,11 @@
-body{
-  background-color: skyblue;
-}
+
 
 .days.solid{
   border-style: solid;
 }
 h1{
   background-color: skyblue;
-  width: 100%;
+
 }
 #header{
   margin:auto;

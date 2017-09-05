@@ -33,7 +33,7 @@ app.use(bodyParser.json())
 
 app.get("/waiter/:username", function(req, res, next) {
       let username = req.params.username;
-      var msg = " choose your work schedule " + username;
+      var msg = " Choose your work schedule " + username;
 
 
       waiterShift.saveData.findOne({
@@ -68,52 +68,84 @@ app.get("/waiter/:username", function(req, res, next) {
 
 
 
-    function storesData(usernameParam, cb) {
-      waiterShift.saveData.findOne({
-          username: usernameParam
-
-        }),
-        function(err, results) {
-          if (err) {
-            return err;
-          } else {
-            if (!results) {
-              results.save(cb);
-            } else {
-              waiterShift.saveData.create({
-                  username: usernameParam,
-                  days: usernameParam
-                }),
-                function(err, results){
-                  if (err) {
-                    return err;
-                  } else if (results) {
-                    results.save(cb);
-                  }
-                }
-
-            }
-          }
-        }
-    }
+    // function storesData(usernameParam, cb) {
+    //   waiterShift.saveData.findOne({
+    //       username: usernameParam
+    //
+    //     },
+    //     function(err, results) {
+    //       if (err) {
+    //         return err;
+    //       } else {
+    //         if (!results) {
+    //           waiterShift.save(cb);
+    //         } else {
+    //
+    //             function(err, results){
+    //               if (err) {
+    //                 return err;
+    //               } else if (results) {
+    //                 results.save(cb);
+    //               }
+    //             })
+    //
+    //         }
+    //       }
+    //     })
+    // }
 
 
     app.post('/waiter/:username', function(req, res) {
-      var username = req.body.username;
+      var username = req.params.username;
+      var msg = " Choose your work schedule " + username;
       var days = req.body.days;
 
-      storesData(username, function(err, result) {
-        if (err) {
+        waiterShift.saveData.findOne({
+          username:username
+        },
+      function(err,results){
+        if(err){
           console.log(err);
-        } else {
+        }
+        else{
+          if(!results){
+            var newWaiter = new waiterShift.saveData({username: username})
+            days.forEach(function(day){
+              newWaiter[day]=true;
+            })
+            newWaiter.save(function(err,results){
+              if(err){
+                console.log(err);
+              }
+              else {
+                console.log(results);
+                res.redirect('/waiter/'+ username);
+              }
+            });
 
-          res.render("index", {
-            username: days
-          })
-
+          }
+          else{
+            res.render("index", {
+                 username:username,
+                 output:msg
+               })
+          }
         }
 
       })
+
+      // storesData(days, function(err, result){
+      //   if (err) {
+      //     console.log(err);
+      //   } else {
+      //
+      //     res.render("index", {
+      //       username: days
+      //     })
+      //
+      //   }
+      //
+      // })
     });
 
 
@@ -136,8 +168,9 @@ app.get("/waiter/:username", function(req, res, next) {
     app.use(function(err, req, res, next) {
       console.error(err.stack)
       res.status(500).send(err.stack)
-    })
+    });
 
-    const port = process.env.PORT || 3001; app.listen(port, function() {
+    const port = process.env.PORT || 5001;
+    app.listen(port, function() {
       console.log('web app started on port:' + port);
     });
