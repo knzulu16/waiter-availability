@@ -17,11 +17,6 @@ mongoose.connect(mongoURL,{
 
 exports.saveData=mongoose.model('saveData',{
   username:String,
-  Sunday:Boolean,
-  Monday:Boolean,
-  Tuesday:Boolean,
-  Wednesday:Boolean,
-  Thursday:Boolean,
-  Friday:Boolean
+  days:Object
 
 });

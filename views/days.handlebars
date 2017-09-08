@@ -1,0 +1,56 @@
+
+<form  id="daysForm" action="/days" method="get">
+  <table frame="box"class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Sunday</th>
+      <th>Monday</th>
+      <th>Tuesday</th>
+      <th>Wednesday</th>
+      <th>Thursday</th>
+      <th>Friday</th>
+      <th>Saturday</th>
+    </tr>
+  </thead>
+<tr>
+    <ul>
+      <td>
+        {{#each waiterDays.Sunday.waiter}}
+        <li>{{this}}</li>
+        {{/each}}
+      </td>
+      <td>
+        {{#each waiterDays.Monday.waiter}}
+        <li>{{this}}</li>
+        {{/each}}
+      </td>
+      <td>
+        {{#each waiterDays.Tuesday.waiter}}
+        <li>{{this}}</li>
+        {{/each}}
+      </td>
+      <td>
+        {{#each waiterDays.Wednesday.waiter}}
+        <li>{{this}}</li>
+        {{/each}}
+      </td>
+      <td>
+        {{#each waiterDays.Thursday.waiter}}
+        <li>{{this}}</li>
+        {{/each}}
+      </td>
+      <td>
+        {{#each waiterDays.Friday.waiter}}
+        <li>{{this}}</li>
+        {{/each}}
+      </td>
+      <td>
+        {{#each waiterDays.Saturday.waiter}}
+        <li>{{this}}</li>
+        {{/each}}
+      </td>
+    </ul>
+
+  </tr>
+  </table>
+</form>

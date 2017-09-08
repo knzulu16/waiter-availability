@@ -10,13 +10,13 @@
     <table id="table">
       <tbody>
         <thead>
-          <input type='checkbox' name="days" value="Sunday">Sunday</input>
-          <input type='checkbox' name="days" value="Monday">Monday</input>
-          <input type='checkbox' name="days" value="Tuesday">Tuesday</input>
-          <input type='checkbox' name="days" value="Wednsday">Wednsday</input>
-          <input type='checkbox' name="days" value="Thursday">Thursday</input>
-          <input type='checkbox' name="days" value="Friday">Friday</input>
-          <input type='checkbox' name="days" value="Saturday">Saturday</input>
+          <input type='checkbox' name="days" value="Sunday" {{#if index.Sunday}}checked{{/if}}>Sunday</input>
+          <input type='checkbox' name="days" value="Monday" {{#if index.Monday}}checked{{/if}}>Monday</input>
+          <input type='checkbox' name="days" value="Tuesday" {{#if index.Tuesday}}checked{{/if}}>Tuesday</input>
+          <input type='checkbox' name="days" value="Wednesday" {{#if index.Wednesday}}checked{{/if}}>Wednesday</input>
+          <input type='checkbox' name="days" value="Thursday"  {{#if index.Thursday}}checked{{/if}}>Thursday</input>
+          <input type='checkbox' name="days" value="Friday" {{#if index.Friday}}checked{{/if}}>Friday</input>
+          <input type='checkbox' name="days" value="Saturday" {{#if index.Saturday}}checked{{/if}}>Saturday</input>
           <br></br>
           <button type='submit' class="btn btn-primary" name="" value='workSchedule'>Submit</button>
         </thead>

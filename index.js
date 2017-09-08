@@ -22,155 +22,192 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 
-// app.get('/waiter', function(req, res){
-//     res.render('index');
-// });
-// app.get('/', function(req, res){
-//     res.redirect('index');
-// });
-
-
-
 app.get("/waiter/:username", function(req, res, next) {
-      let username = req.params.username;
-      var msg = " Choose your work schedule " + username;
+  var username = req.params.username;
+  // console.log("{{{{{{{{{{{{{{{}" +username);
+  var msg = " Choose your work schedule" + username;
 
-
-      waiterShift.saveData.findOne({
-          username: username
-        },
-        function(err, results) {
-          if (err) {
-            console.log(err);
-          } else {
-            if (!results){
-              res.render("index", {
-                username: username,
-                output: msg
-              })
-            }
-           else {
-            res.render("index", {
-              username: results,
-              output: msg
-            })
-          }
+  waiterShift.saveData.findOne({
+      username: username
+    },
+    function(err, results) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (!results) {
+          res.render("index", {
+            username: username,
+            output: msg
+          })
+        } else {
+          res.render("index", {
+            username: results.username,
+            output: msg
+          })
         }
-      });
+      }
+    });
 })
-    // res.render("index", {
-    //   output: msg,
-    //   o
-    // })
+// res.render("index", {
+//   output: msg,
+//   o
+// })
 
 
 
 
 
 
-    // function storesData(usernameParam, cb) {
-    //   waiterShift.saveData.findOne({
-    //       username: usernameParam
-    //
-    //     },
-    //     function(err, results) {
-    //       if (err) {
-    //         return err;
-    //       } else {
-    //         if (!results) {
-    //           waiterShift.save(cb);
-    //         } else {
-    //
-    //             function(err, results){
-    //               if (err) {
-    //                 return err;
-    //               } else if (results) {
-    //                 results.save(cb);
-    //               }
-    //             })
-    //
-    //         }
-    //       }
-    //     })
-    // }
+// function storesData(usernameParam, cb) {
+//   waiterShift.saveData.findOne({
+//       username: usernameParam
+//
+//     },
+//     function(err, results) {
+//       if (err) {
+//         return err;
+//       } else {
+//         if (!results) {
+//           waiterShift.save(cb);
+//         } else {
+//
+//             function(err, results){
+//               if (err) {
+//                 return err;
+//               } else if (results) {
+//                 results.save(cb);
+//               }
+//             })
+//
+//         }
+//       }
+//     })
+// }
+
+var objectDays = {};
+app.post('/waiter/:username', function(req, res) {
+  var username = req.params.username;
+  // console.log(username);
+  var msg = " Choose your work schedule " + username;
+  var days = req.body.days;
 
 
-    app.post('/waiter/:username', function(req, res) {
-      var username = req.params.username;
-      var msg = " Choose your work schedule " + username;
-      var days = req.body.days;
+  // it determines if the days are arrays and convert from string to array
+  if (!Array.isArray(days)) {
+    days = [days];
 
-        waiterShift.saveData.findOne({
-          username:username
-        },
-      function(err,results){
-        if(err){
-          console.log(err);
+  }
+  days.forEach(function(day) {
+      objectDays[day] = true;
+
+  })
+  waiterShift.saveData.findOneAndUpdate({
+      username: username
+    }, {
+      days: objectDays
+    },
+    function(err, results) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (!results) {
+          var newWaiter = new waiterShift.saveData({
+            username: username,
+            days: objectDays
+          })
+          newWaiter.save(function(err, results) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(results);
+              res.redirect('/waiter/' + results.username);
+            }
+          })
+
+        } else {
+          // console.log('++++++++++++++' + username);
+          res.render('index',{username:username});
         }
-        else{
-          if(!results){
-            var newWaiter = new waiterShift.saveData({username: username})
-            days.forEach(function(day){
-              newWaiter[day]=true;
-            })
-            newWaiter.save(function(err,results){
-              if(err){
-                console.log(err);
-              }
-              else {
-                console.log(results);
-                res.redirect('/waiter/'+ username);
-              }
-            });
+      }
 
-          }
-          else{
-            res.render("index", {
-                 username:username,
-                 output:msg
-               })
-          }
+    })
+
+});
+
+
+
+
+app.get('/days', function(req, res) {
+  var shiftDays = ["Monday", "Tuesday","Wednesday","Thursday","Friday", "Saturday","Sunday"];
+
+  var waiterDays = {
+    Monday :{
+      waiter: []
+    },
+    Tuesday :{
+      waiter: []
+    },
+    Wednesday :{
+      waiter: []
+    },
+    Thursday :{
+      waiter: []
+    },
+    Friday :{
+      waiter: []
+    },
+    Saturday :{
+      waiter: []
+    },
+    Sunday :{
+      waiter: []
+    }
+  }
+  waiterShift.saveData.find({}, function(err, results) {
+    if (err) {
+      console.log(err);
+    }
+    // loop through results from the db
+    results.forEach(function(shift){
+      //loop thru days
+      shiftDays.forEach(function(day){
+        if(shift.days[day]){
+          // console.log(shift[day]);
+          console.log(shift.username);
+           waiterDays[day].waiter.push(shift.username);
         }
 
       })
 
-      // storesData(days, function(err, result){
-      //   if (err) {
-      //     console.log(err);
-      //   } else {
-      //
-      //     res.render("index", {
-      //       username: days
-      //     })
-      //
-      //   }
-      //
-      // })
+    })
+
+    console.log(waiterDays.Monday.waiter);
+    console.log(waiterDays);
+    res.render('days', {
+      waiterDays:waiterDays
+
+
+
     });
+  })
+});
+//
+// app.post('/waiters/:username',function(req, res){
+// res.send('home');
+// })
+//
+// app.get('/days',function(req, res){
+// res.send('home');
+// })
 
 
 
+app.use(function(err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send(err.stack)
+});
 
-    // app.get('/waiters/:username', function(req, res) {
-    //   res.send('home');
-    // });
-    //
-    // app.post('/waiters/:username',function(req, res){
-    // res.send('home');
-    // })
-    //
-    // app.get('/days',function(req, res){
-    // res.send('home');
-    // })
-
-
-
-    app.use(function(err, req, res, next) {
-      console.error(err.stack)
-      res.status(500).send(err.stack)
-    });
-
-    const port = process.env.PORT || 5001;
-    app.listen(port, function() {
-      console.log('web app started on port:' + port);
-    });
+const port = process.env.PORT || 5001;
+app.listen(port, function() {
+  console.log('web app started on port:' + port);
+});
