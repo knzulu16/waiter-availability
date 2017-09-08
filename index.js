@@ -25,70 +25,40 @@ app.use(bodyParser.json())
 app.get("/waiter/:username", function(req, res, next) {
   var username = req.params.username;
   // console.log("{{{{{{{{{{{{{{{}" +username);
-  var msg = " Choose your work schedule" + username;
 
   waiterShift.saveData.findOne({
       username: username
     },
-    function(err, results) {
+    function(err, shiftData) {
       if (err) {
         console.log(err);
       } else {
-        if (!results) {
+        if (!shiftData) {
           res.render("index", {
             username: username,
-            output: msg
+            output: username
           })
         } else {
+
           res.render("index", {
-            username: results.username,
-            output: msg
+            username: shiftData.username,
+            output: username,
+            days : shiftData.days
           })
         }
       }
     });
 })
-// res.render("index", {
-//   output: msg,
-//   o
-// })
 
 
 
 
-
-
-// function storesData(usernameParam, cb) {
-//   waiterShift.saveData.findOne({
-//       username: usernameParam
-//
-//     },
-//     function(err, results) {
-//       if (err) {
-//         return err;
-//       } else {
-//         if (!results) {
-//           waiterShift.save(cb);
-//         } else {
-//
-//             function(err, results){
-//               if (err) {
-//                 return err;
-//               } else if (results) {
-//                 results.save(cb);
-//               }
-//             })
-//
-//         }
-//       }
-//     })
-// }
-
-var objectDays = {};
 app.post('/waiter/:username', function(req, res) {
+
+  var objectDays = {};
+  var container = "";
   var username = req.params.username;
-  // console.log(username);
-  var msg = " Choose your work schedule " + username;
+
   var days = req.body.days;
 
 
@@ -98,8 +68,7 @@ app.post('/waiter/:username', function(req, res) {
 
   }
   days.forEach(function(day) {
-      objectDays[day] = true;
-
+    objectDays[day] = true;
   })
   waiterShift.saveData.findOneAndUpdate({
       username: username
@@ -120,13 +89,22 @@ app.post('/waiter/:username', function(req, res) {
               console.log(err);
             } else {
               console.log(results);
-              res.redirect('/waiter/' + results.username);
+              res.render('index', {
+                message: "Successful added to the database!",
+                username: results.username
+              })
             }
           })
 
         } else {
           // console.log('++++++++++++++' + username);
-          res.render('index',{username:username});
+          res.render('index', {
+            message: "Successful updated to the database!",
+
+
+            // username:username
+
+          });
         }
       }
 
@@ -138,28 +116,28 @@ app.post('/waiter/:username', function(req, res) {
 
 
 app.get('/days', function(req, res) {
-  var shiftDays = ["Monday", "Tuesday","Wednesday","Thursday","Friday", "Saturday","Sunday"];
+  var shiftDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   var waiterDays = {
-    Monday :{
+    Monday: {
       waiter: []
     },
-    Tuesday :{
+    Tuesday: {
       waiter: []
     },
-    Wednesday :{
+    Wednesday: {
       waiter: []
     },
-    Thursday :{
+    Thursday: {
       waiter: []
     },
-    Friday :{
+    Friday: {
       waiter: []
     },
-    Saturday :{
+    Saturday: {
       waiter: []
     },
-    Sunday :{
+    Sunday: {
       waiter: []
     }
   }
@@ -168,13 +146,13 @@ app.get('/days', function(req, res) {
       console.log(err);
     }
     // loop through results from the db
-    results.forEach(function(shift){
+    results.forEach(function(shift) {
       //loop thru days
-      shiftDays.forEach(function(day){
-        if(shift.days[day]){
+      shiftDays.forEach(function(day) {
+        if (shift.days[day]) {
           // console.log(shift[day]);
           console.log(shift.username);
-           waiterDays[day].waiter.push(shift.username);
+          waiterDays[day].waiter.push(shift.username);
         }
 
       })
@@ -184,21 +162,17 @@ app.get('/days', function(req, res) {
     console.log(waiterDays.Monday.waiter);
     console.log(waiterDays);
     res.render('days', {
-      waiterDays:waiterDays
+      waiterDays: waiterDays
 
 
 
     });
   })
 });
-//
-// app.post('/waiters/:username',function(req, res){
-// res.send('home');
-// })
-//
-// app.get('/days',function(req, res){
-// res.send('home');
-// })
+
+
+
+
 
 
 
