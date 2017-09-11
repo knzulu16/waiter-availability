@@ -8,12 +8,22 @@ h1{
 
 }
 
-/*html body {
-    background-color: rgba(0,0,0,0.42);
-color:white;
-}*/
+.style1{
+  background-color: red;
+}
+.style2{
+  background-color: green;
+}
+.style3{
+  background-color: blue;
+
+}
+
+
+
+
 #header{
-  margin-top: 10%;
+  margin-top: 5%;
   margin:auto;
 width: 100%;
 /*text-align: center;

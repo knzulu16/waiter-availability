@@ -79,11 +79,14 @@ app.post('/waiter/:username', function(req, res) {
       if (err) {
         console.log(err);
       } else {
-        if (!results) {
+      if (!results) {
+
+
           var newWaiter = new waiterShift.saveData({
             username: username,
             days: objectDays
           })
+
           newWaiter.save(function(err, results) {
             if (err) {
               console.log(err);
@@ -104,13 +107,32 @@ app.post('/waiter/:username', function(req, res) {
 
             // username:username
 
-          });
+          })
         }
+
       }
-
-    })
-
+})
 });
+
+
+function daysColoring(color){
+  if(color===3){
+return "style1";
+  }
+  else if(color<3){
+    return "style2";
+  }
+  else if(color>3){
+    return "style3";
+  }
+}
+
+
+
+
+
+
+
 
 
 
@@ -162,7 +184,15 @@ app.get('/days', function(req, res) {
     console.log(waiterDays.Monday.waiter);
     console.log(waiterDays);
     res.render('days', {
-      waiterDays: waiterDays
+      waiterDays: waiterDays,
+      SundayColor: daysColoring(waiterDays.Sunday.waiter.length),
+      MondayColor:daysColoring(waiterDays.Monday.waiter.length),
+      TuesdayColor:daysColoring(waiterDays.Tuesday.waiter.length),
+      WednesdayColor:daysColoring(waiterDays.Wednesday.waiter.length),
+      ThursdayColor:daysColoring(waiterDays.Thursday.waiter.length),
+      FridayColor:daysColoring(waiterDays.Friday.waiter.length),
+      SaturdayColor:daysColoring(waiterDays.Saturday.waiter.length)
+
 
 
 
@@ -172,7 +202,15 @@ app.get('/days', function(req, res) {
 
 
 
+app.get('/Clear', function(req, res) {
+  waiterShift.saveData.remove({}, function(err, remove) {
+    if (err) {
+      return err;
+    }
 
+    res.redirect('/days');
+  })
+});
 
 
 

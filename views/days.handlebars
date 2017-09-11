@@ -13,37 +13,38 @@
     </thead>
     <tr>
       <ul>
-        <td>
+        <td class="{{SundayColor}}">
+          
           {{#each waiterDays.Sunday.waiter}}
             <li>{{this}}</li>
           {{/each}}
         </td>
-        <td>
+        <td class="{{MondayColor}}">
           {{#each waiterDays.Monday.waiter}}
             <li>{{this}}</li>
           {{/each}}
         </td>
-        <td>
+        <td class="{{TuesdayColor}}">
           {{#each waiterDays.Tuesday.waiter}}
             <li>{{this}}</li>
           {{/each}}
         </td>
-        <td>
+        <td class="{{WednesdayColor}}">
           {{#each waiterDays.Wednesday.waiter}}
             <li>{{this}}</li>
           {{/each}}
         </td>
-        <td>
+        <td class="{{ThursdayColor}}">
           {{#each waiterDays.Thursday.waiter}}
             <li>{{this}}</li>
           {{/each}}
         </td>
-        <td>
+        <td class="{{FridayColor}}">
           {{#each waiterDays.Friday.waiter}}
             <li>{{this}}</li>
           {{/each}}
         </td>
-        <td>
+        <td class="{{SaturdayColor}}">
           {{#each waiterDays.Saturday.waiter}}
             <li>{{this}}</li>
           {{/each}}
@@ -52,4 +53,5 @@
 
     </tr>
   </table>
+  <button class="btn btn-success" id="primary" type="submit" name="" value='reset'><a href="/Clear">Clear</a></button>
 </form>
