@@ -38,7 +38,7 @@ app.get("/waiter/:username", function(req, res, next) {
       username: username
     },
     function(err, shiftData) {
-      console.log("#######",shiftData);
+      console.log("#######", shiftData);
       if (err) {
         console.log(err);
       } else {
@@ -52,7 +52,7 @@ app.get("/waiter/:username", function(req, res, next) {
           res.render("index", {
             username: shiftData.username,
             output: username,
-            days : shiftData.days
+            days: shiftData.days
           })
         }
       }
@@ -88,7 +88,8 @@ app.post('/waiter/:username', function(req, res) {
       if (err) {
         console.log(err);
       } else {
-      if (!results) {
+
+        if (!results) {
 
 
           var newWaiter = new waiterShift.saveData({
@@ -100,46 +101,33 @@ app.post('/waiter/:username', function(req, res) {
             if (err) {
               console.log(err);
             } else {
-              console.log("ssssssssss",results);
-              req.flash('error','Successful added to the database');
-              res.redirect('/waiter/'+username);
-              // res.render('index', {
-              //   message: "Successful added to the database!",
-              //   username: results.username
-              // })
+              console.log("ssssssssss", results);
+              req.flash('error', 'Successful added to the database');
+              res.redirect('/waiter/' + username);
+
             }
           })
 
         } else {
-          req.flash('error','Successful updated to the database');
-          res.redirect('/waiter/'+username);
-          // res.render('index', {
-          //   message: "Successful updated to the database!",
-          //
-          //
-          //   // username:username
-          //
-          // })
+          req.flash('error', 'Successful updated to the database');
+          res.redirect('/waiter/' + username);
+
         }
 
       }
-})
+    })
 });
 
 
-function daysColoring(color){
-  if(color===3){
-return "style1";
-  }
-  else if(color<3){
+function daysColoring(color) {
+  if (color === 3) {
+    return "style1";
+  } else if (color < 3) {
     return "style2";
-  }
-  else if(color>3){
+  } else if (color > 3) {
     return "style3";
   }
 }
-
-
 
 
 
@@ -198,12 +186,12 @@ app.get('/days', function(req, res) {
     res.render('days', {
       waiterDays: waiterDays,
       SundayColor: daysColoring(waiterDays.Sunday.waiter.length),
-      MondayColor:daysColoring(waiterDays.Monday.waiter.length),
-      TuesdayColor:daysColoring(waiterDays.Tuesday.waiter.length),
-      WednesdayColor:daysColoring(waiterDays.Wednesday.waiter.length),
-      ThursdayColor:daysColoring(waiterDays.Thursday.waiter.length),
-      FridayColor:daysColoring(waiterDays.Friday.waiter.length),
-      SaturdayColor:daysColoring(waiterDays.Saturday.waiter.length)
+      MondayColor: daysColoring(waiterDays.Monday.waiter.length),
+      TuesdayColor: daysColoring(waiterDays.Tuesday.waiter.length),
+      WednesdayColor: daysColoring(waiterDays.Wednesday.waiter.length),
+      ThursdayColor: daysColoring(waiterDays.Thursday.waiter.length),
+      FridayColor: daysColoring(waiterDays.Friday.waiter.length),
+      SaturdayColor: daysColoring(waiterDays.Saturday.waiter.length)
 
 
 
