@@ -3,7 +3,7 @@ var express = require('express');
 var handlebars = require('express-handlebars');
 const session = require("express-session");
 var bodyParser = require('body-parser');
-
+const flash = require('express-flash');
 var app = express();
 var waitersList = [];
 var waiterShift = require('./models');
@@ -14,6 +14,14 @@ app.engine('handlebars', handlebars({
 }));
 app.set('view engine', 'handlebars');
 
+
+app.use(session({
+  secret: 'keyboard cat',
+  cookie: {
+    maxAge: 60000 * 30
+  }
+}));
+app.use(flash());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
   extended: false
@@ -30,6 +38,7 @@ app.get("/waiter/:username", function(req, res, next) {
       username: username
     },
     function(err, shiftData) {
+      console.log("#######",shiftData);
       if (err) {
         console.log(err);
       } else {
@@ -91,23 +100,26 @@ app.post('/waiter/:username', function(req, res) {
             if (err) {
               console.log(err);
             } else {
-              console.log(results);
-              res.render('index', {
-                message: "Successful added to the database!",
-                username: results.username
-              })
+              console.log("ssssssssss",results);
+              req.flash('error','Successful added to the database');
+              res.redirect('/waiter/'+username);
+              // res.render('index', {
+              //   message: "Successful added to the database!",
+              //   username: results.username
+              // })
             }
           })
 
         } else {
-          // console.log('++++++++++++++' + username);
-          res.render('index', {
-            message: "Successful updated to the database!",
-
-
-            // username:username
-
-          })
+          req.flash('error','Successful updated to the database');
+          res.redirect('/waiter/'+username);
+          // res.render('index', {
+          //   message: "Successful updated to the database!",
+          //
+          //
+          //   // username:username
+          //
+          // })
         }
 
       }

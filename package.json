@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node"
+    "test": "mocha",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -20,11 +21,15 @@
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "express": "^4.15.4",
+    "express-flash": "0.0.2",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.5",
     "handlebars": "^4.0.10",
     "mongodb": "^2.2.31",
     "mongoose": "^4.11.9",
     "nodemon": "^1.11.0"
+  },
+  "engines": {
+    "node": "4.1.1"
   }
 }

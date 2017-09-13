@@ -7,6 +7,7 @@
   <div id="output">
     Choose your work schedule {{output}}
   </div>
+
   <div id="checkBoxes">
     <table id="table">
       <tbody>
@@ -29,15 +30,12 @@
         </thead>
         </tr>
       </tbody>
-      <div id="landingMsg">
-
-        <!-- {{results.days.Monday}} -->
-
-        {{message}}
+    
+      <div class='error'>
+        {{messages.error}}
       </div>
     </table>
   </div>
-  <div class='error'>
-    {{messages.error}}
-  </div>
+
+
 </form>
