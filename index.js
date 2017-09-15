@@ -70,6 +70,11 @@ app.post('/waiter/:username', function(req, res) {
 
   var days = req.body.days;
 
+  if (days === undefined) {
+      console.log('no days');
+      req.flash('error', 'Select checkBoxes');
+      res.redirect('/waiter/'+username );
+  } else {
 
   // it determines if the days are arrays and convert from string to array
   if (!Array.isArray(days)) {
@@ -89,7 +94,7 @@ app.post('/waiter/:username', function(req, res) {
         console.log(err);
       } else {
 
-        if (!results) {
+       if (!results) {
 
 
           var newWaiter = new waiterShift.saveData({
@@ -101,7 +106,7 @@ app.post('/waiter/:username', function(req, res) {
             if (err) {
               console.log(err);
             } else {
-              console.log("ssssssssss", results);
+
               req.flash('error', 'Successful added to the database');
               res.redirect('/waiter/' + username);
 
@@ -112,10 +117,13 @@ app.post('/waiter/:username', function(req, res) {
           req.flash('error', 'Successful updated to the database');
           res.redirect('/waiter/' + username);
 
-        }
 
       }
+    }
+
+
     })
+  }
 });
 
 
