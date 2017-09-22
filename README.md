@@ -28,7 +28,7 @@
 
 waiter-availability/models.js/index.js/procfile/package.json/public/css/style.css/normalize.css/bootstrap.css/bootstrap.css.map/bootstrap.min.css/bootstrap.min.css.map/bootstrap-theme.css/bootstrap-theme.css.map/bootstrap-theme.min.css/bootstrap-theme.min.css.map/views/layouts/main.handlebars/index.js/days.handlebars/
 
-###Installations
+### Installations
 - npm init
 - handlebars
 - atom editor
@@ -36,9 +36,9 @@ waiter-availability/models.js/index.js/procfile/package.json/public/css/style.cs
 
 ###  Which languages used?
 
-..* JavaScript
-..* Html and
-..* CSS
+- JavaScript
+- Html and
+- CSS
 
 ###  Frameworks
 
