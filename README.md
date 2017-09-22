@@ -29,23 +29,23 @@
 waiter-availability/models.js/index.js/procfile/package.json/public/css/style.css/normalize.css/bootstrap.css/bootstrap.css.map/bootstrap.min.css/bootstrap.min.css.map/bootstrap-theme.css/bootstrap-theme.css.map/bootstrap-theme.min.css/bootstrap-theme.min.css.map/views/layouts/main.handlebars/index.js/days.handlebars/
 
 ##Installations
-..* npm init
-..* handlebars
-..* atom editor
-..* Body-parser
+..*  npm init
+..*  handlebars
+..*  atom editor
+..*  Body-parser
 
 ## Which languages used?
 
-..* JavaScript
-..* Html and
-..* CSS
+..*  JavaScript
+..*  Html and
+..*  CSS
 
 ## Frameworks
 
-..* NodeJs
-..* npm
-..* ExpressJs and
-..* handlebars.
+..*  NodeJs
+..*  npm
+..*  ExpressJs and
+..*  Handlebars.
 
 
 ##Which database used to store and retrieve data?
@@ -54,12 +54,12 @@ MongoDB
 
 ## How to connect it?
 
-..* Connect to MongoDB by using mongoose.
+..*  Connect to MongoDB by using mongoose.
 
 ## Which hosted platform?
 
-..* Heroku
+..*  Heroku
 How to deploy to heroku?
 
 ## Which tool that worked as a cloud?
-..* Mlab
+..*  Mlab
