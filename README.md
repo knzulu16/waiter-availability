@@ -29,10 +29,10 @@
 waiter-availability/models.js/index.js/procfile/package.json/public/css/style.css/normalize.css/bootstrap.css/bootstrap.css.map/bootstrap.min.css/bootstrap.min.css.map/bootstrap-theme.css/bootstrap-theme.css.map/bootstrap-theme.min.css/bootstrap-theme.min.css.map/views/layouts/main.handlebars/index.js/days.handlebars/
 
 ### Installations
-- npm init
-- handlebars
-- atom editor
-- Body-parser
+- [npm](https://docs.npmjs.com/getting-started/using-a-package.json)
+- [Handlebars](https://www.npmjs.com/package/view-engine-handlebars)
+- [atom editor](http://tipsonubuntu.com/2016/08/05/install-atom-text-editor-ubuntu-16-04/)
+- [Body-parser](https://www.npmjs.com/package/body-parser)
 
 ### Which languages used?
 
