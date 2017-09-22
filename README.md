@@ -43,23 +43,26 @@ waiter-availability/models.js/index.js/procfile/package.json/public/css/style.cs
 ### Frameworks
 
 - [NodeJs](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04)
-- npm
-- ExpressJs and
-- Handlebars.
+- [npm](https://docs.npmjs.com/getting-started/using-a-package.json)
+- [ExpressJs](http://expressjs.com/en/starter/installing.html)
+- [Handlebars](https://www.npmjs.com/package/view-engine-handlebars)
 
 
 ### Which database used to store and retrieve data?
 
-MongoDB
+[MongoDB](https://www.mongodb.com/)
 
 ### How to connect it?
 
-- Connect to MongoDB by using mongoose.
+- [Connect to MongoDB by using mongoose](https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications)
 
 ### Which hosted platform?
 
-- Heroku
-How to deploy to heroku?
+- [Heroku]is a container-based cloud Platform as a service.(https://devcenter.heroku.com/articles/how-heroku-works)
+- How to deploy to heroku?
+      - git heroku origin master
+- Developers use Heroku to deploy,manage and scale modern apps.
 
 ### Which tool that worked as a cloud?
-- Mlab
+- [Mlab](https://mlab.com/)
+- Sign up
