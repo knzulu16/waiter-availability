@@ -1,18 +1,18 @@
 # waiter-availability
 
-Introduction
+##Introduction
 
-Waiter availability app allows a waiter to:
+##Waiter availability app allows a waiter to:
 
-Select days the waiter can work
-Update the days the waiter can work on
-If the waiter decides to cancel can cancel
+..*Select days the waiter can work.
+..*Update the days the waiter can work on
+..*If the waiter decides to cancel can cancel
 
 Admin can:
 
 See how many waiters are available to work
 Reset the data to use the system for a new week
-Highlight according to lenth of waiters-if waiters are less
+Highlight according to length of waiters-if waiters are less
 than three then it Highlights waiters green and if it is equal to three then it Highlights waiters blue then if waiters are above three then it Highlights red.
 
 Tools Involve
