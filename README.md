@@ -1,55 +1,65 @@
 # waiter-availability
 
-##Introduction
+## Introduction
 
-##Waiter availability app allows a waiter to:
+## Waiter availability app allows a waiter to:
 
-..*Select days the waiter can work.
-..*Update the days the waiter can work on
-..*If the waiter decides to cancel can cancel
+..* Select days the waiter can work.
+..* Update the days the waiter can work on.
+..* If the waiter decides to cancel can cancel.
 
-Admin can:
+## Admin can:
 
-See how many waiters are available to work
-Reset the data to use the system for a new week
-Highlight according to length of waiters-if waiters are less
-than three then it Highlights waiters green and if it is equal to three then it Highlights waiters blue then if waiters are above three then it Highlights red.
+..* See how many waiters are available to work
+..* Reset the data to use the system for a new week
+..* Highlight according to length of waiters-if waiters are less than three then
+ it Highlights waiters green and if it is equal to three then it Highlights waiters blue then
+  if waiters are above three then it Highlights red.
 
-Tools Involve
+## Tools Involve
 
-Atom editor:
-Allows me to perform tasks.
-Write Html
-Write JavaScript
-Write CSS
+## Atom editor:
+..* Allows me to perform tasks.
+..# Write Html
+..# Write JavaScript
+..# Write CSS
 
-File setup
+## File setup
 
 waiter-availability/models.js/index.js/procfile/package.json/public/css/style.css/normalize.css/bootstrap.css/bootstrap.css.map/bootstrap.min.css/bootstrap.min.css.map/bootstrap-theme.css/bootstrap-theme.css.map/bootstrap-theme.min.css/bootstrap-theme.min.css.map/views/layouts/main.handlebars/index.js/days.handlebars/
 
-Installations
-npm init
-handlebars
-atom editor
-Body-parser
+##Installations
+..* npm init
+..* handlebars
+..* atom editor
+..* Body-parser
 
-Which languages used
+## Which languages used?
 
-JavaScript,Html and CSS
+..* JavaScript
+..* Html and
+..* CSS
 
-Frameworks
+## Frameworks
 
-NodeJs,ExpressJs and handlebars.
+..* NodeJs
+..* npm
+..* ExpressJs and
+..* handlebars.
 
 
-Which database?
+##Which database used to store and retrieve data?
 
-MongoDB-connect to MongoDB by using mongoose
+MongoDB
 
-Which hosted platform?
+## How to connect it?
 
-Heroku
+..* Connect to MongoDB by using mongoose.
+
+## Which hosted platform?
+
+..* Heroku
 How to deploy to heroku?
 
-Which tool that worked as a cloud?
-Mlab
+## Which tool that worked as a cloud?
+..* Mlab
