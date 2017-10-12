@@ -2,6 +2,12 @@ var mongoose = require('mongoose');
 var Schema=mongoose.Schema;
 const mongoURL = process.env.MONGO_DB_URL || "mongodb://localhost/Waiter";
 
+mongoose.connection.on("error", function(err){
+  console.log(err);
+});
+
+
+
 mongoose.connect(mongoURL,{
   useMongoClient:true
 }),function(err) {
