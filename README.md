@@ -33,6 +33,7 @@ waiter-availability/models.js/index.js/procfile/package.json/public/css/style.cs
 - [Handlebars](https://www.npmjs.com/package/view-engine-handlebars)
 - [atom editor](http://tipsonubuntu.com/2016/08/05/install-atom-text-editor-ubuntu-16-04/)
 - [Body-parser](https://www.npmjs.com/package/body-parser)
+- nodemon
 
 ### Which languages used?
 
@@ -66,3 +67,11 @@ waiter-availability/models.js/index.js/procfile/package.json/public/css/style.cs
 ### Which tool that worked as a cloud?
 - [Mlab](https://mlab.com/)
 - Sign up
+### How to run the APP
+
+- Run on the server side
+- Run on localhost:5001
+- Use nodemon on the terminal
+'''
+npm install
+'''
