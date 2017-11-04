@@ -5,6 +5,8 @@ const session = require("express-session");
 var bodyParser = require('body-parser');
 const flash = require('express-flash');
 var app = express();
+var http = require('http');
+var io = require('socket.io')(http);
 var waitersList = [];
 var waiterShift = require('./models');
 app.use(express.static(__dirname + '/public'));
@@ -21,13 +23,18 @@ app.use(session({
     maxAge: 60000 * 30
   }
 }));
+app.use(session({
+  secret: 'nzulu',
+  resave: false,
+  saveUninitialized: true
+}))
 app.use(flash());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 // parse application/json
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
 
 
 app.get("/waiter/:username", function(req, res, next) {
@@ -71,58 +78,58 @@ app.post('/waiter/:username', function(req, res) {
   var days = req.body.days;
 
   if (days === undefined) {
-      console.log('no days');
-      req.flash('error', 'Select checkBoxes');
-      res.redirect('/waiter/'+username );
+    console.log('no days');
+    req.flash('error', 'Select checkBoxes');
+    res.redirect('/waiter/' + username);
   } else {
 
-  // it determines if the days are arrays and convert from string to array
-  if (!Array.isArray(days)) {
-    days = [days];
+    // it determines if the days are arrays and convert from string to array
+    if (!Array.isArray(days)) {
+      days = [days];
 
-  }
-  days.forEach(function(day) {
-    objectDays[day] = true;
-  })
-  waiterShift.saveData.findOneAndUpdate({
-      username: username
-    }, {
-      days: objectDays
-    },
-    function(err, results) {
-      if (err) {
-        console.log(err);
-      } else {
-
-       if (!results) {
-
-
-          var newWaiter = new waiterShift.saveData({
-            username: username,
-            days: objectDays
-          })
-
-          newWaiter.save(function(err, results) {
-            if (err) {
-              console.log(err);
-            } else {
-
-              req.flash('error', 'Successful added to the database');
-              res.redirect('/waiter/' + username);
-
-            }
-          })
-
-        } else {
-          req.flash('error', 'Successful updated to the database');
-          res.redirect('/waiter/' + username);
-
-
-      }
     }
-
-
+    days.forEach(function(day) {
+      objectDays[day] = true;
     })
+    waiterShift.saveData.findOneAndUpdate({
+        username: username
+      }, {
+        days: objectDays
+      },
+      function(err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+
+          if (!results) {
+
+
+            var newWaiter = new waiterShift.saveData({
+              username: username,
+              days: objectDays
+            })
+
+            newWaiter.save(function(err, results) {
+              if (err) {
+                console.log(err);
+              } else {
+
+                req.flash('error', 'Successful added to the database');
+                res.redirect('/waiter/' + username);
+
+              }
+            })
+
+          } else {
+            req.flash('error', 'Successful updated to the database');
+            res.redirect('/waiter/' + username);
+
+
+          }
+        }
+
+
+      })
   }
 });
 
@@ -201,33 +208,117 @@ app.get('/days', function(req, res) {
       FridayColor: daysColoring(waiterDays.Friday.waiter.length),
       SaturdayColor: daysColoring(waiterDays.Saturday.waiter.length)
 
-
-
-
     });
   })
 });
-
-
-
+// deleting data from the database
 app.get('/Clear', function(req, res) {
   waiterShift.saveData.remove({}, function(err, remove) {
     if (err) {
       return err;
     }
-
     res.redirect('/days');
   })
 });
 
 
 
-app.use(function(err, req, res, next) {
-  console.error(err.stack)
-  res.status(500).send(err.stack)
-});
+// login routes
 
-const port = process.env.PORT || 5001;
-app.listen(port, function() {
-  console.log('web app started on port:' + port);
-});
+app.get('/login', function(req, res) {
+
+  // try {
+  res.render("login");
+  // } catch (err) {
+  //   next(err)
+  // }
+})
+
+
+
+
+var users = {
+  "admin": "admin",
+  "Nzulu": "waiter",
+  "Nolo": "waiter"
+};
+app.post('/login', function(req, res) {
+
+      // console.log(req);
+      // res.send(req.body)
+      let username = req.body.username;
+      var password = req.body.password;
+      var userRole = users[req.body.username];
+      if (userRole && req.body.password === "pass123") {
+        req.session.username = req.body.username;
+        req.session.userRole = userRole;
+        //console.log("**********");
+        console.log(userRole);
+        console.log('@@@@@@@@@@@');
+
+        if (userRole === "waiter") {
+          res.redirect("/waiter/" + username);
+        } else if (userRole === "admin") {
+          res.redirect("/days");
+        } else {
+          //flash message - access denied
+          res.redirect("/login");
+        }
+      }
+
+})
+app.get('/logout', function(req, res) {
+
+})
+app.get('/access_denied', function(req, res) {
+  res.render('/access_denied');
+})
+
+      app.post('/logout', function(req, res) {
+        console.log("AAAAAAAAA");
+          if (!req.session.username) {
+            delete req.session.username;
+            res.redirect("/login");
+          }
+          })
+
+
+
+          app.post('/access_denied', function(req, res) {
+            console.log("AAAAAAAAA");
+
+            var userRole = users[req.body.username];
+            if(req.session.userRole!=="admin"){
+              res.redirect('/access_denied')
+            }
+
+        })
+
+
+
+
+
+
+
+
+        // var users={
+        //   "admin":"admin",
+        //   "Nzulu":"waiter"
+        // }
+        //
+        // var username=req.body.user;
+        // var password=req.body.passwd;
+
+
+
+
+
+
+    app.use(function(err, req, res, next) {
+      console.error(err.stack)
+      res.status(500).send(err.stack)
+    });
+
+    const port = process.env.PORT || 5001; app.listen(port, function() {
+      console.log('web app started on port:' + port);
+    });
