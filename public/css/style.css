@@ -1,4 +1,7 @@
+#primary{
+  margin-left: 90%;
 
+}
 
 .days.solid{
   border-style: solid;
@@ -10,7 +13,7 @@ h1{
 
 .style1{
   background-color: blue;
-  
+
 }
 .style2{
   background-color: green;

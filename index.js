@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({
 // app.use(bodyParser.json())
 
 
-app.get("/waiter/:username", function(req, res, next) {
+app.get("/waiter/:username", getuser ,function(req, res, next) {
   var username = req.params.username;
   // console.log("{{{{{{{{{{{{{{{}" +username);
 
@@ -69,7 +69,7 @@ app.get("/waiter/:username", function(req, res, next) {
 
 
 
-app.post('/waiter/:username', function(req, res) {
+app.post('/waiter/:username',getuser, function(req, res) {
 
   var objectDays = {};
   var container = "";
@@ -145,14 +145,7 @@ function daysColoring(color) {
 }
 
 
-
-
-
-
-
-
-
-app.get('/days', function(req, res) {
+app.get('/days',IsAdmin, function(req, res) {
   var shiftDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   var waiterDays = {
@@ -234,91 +227,98 @@ app.get('/login', function(req, res) {
   // }
 })
 
-
-
-
 var users = {
   "admin": "admin",
   "Nzulu": "waiter",
   "Nolo": "waiter"
 };
 app.post('/login', function(req, res) {
+  // console.log(req);
+  // res.send(req.body)
+  let username = req.body.username;
+  var password = req.body.password;
+  var userRole = users[req.body.username];
 
-      // console.log(req);
-      // res.send(req.body)
-      let username = req.body.username;
-      var password = req.body.password;
-      var userRole = users[req.body.username];
-      if (userRole && req.body.password === "pass123") {
-        req.session.username = req.body.username;
-        req.session.userRole = userRole;
-        //console.log("**********");
-        console.log(userRole);
-        console.log('@@@@@@@@@@@');
+  if (userRole && req.body.password === "pass123") {
+    req.session.username = req.body.username;
+    req.session.userRole = userRole;
+    //console.log("**********");
+    console.log(userRole);
+    console.log('@@@@@@@@@@@');
 
-        if (userRole === "waiter") {
-          res.redirect("/waiter/" + username);
-        } else if (userRole === "admin") {
-          res.redirect("/days");
-        } else {
-          //flash message - access denied
-          res.redirect("/login");
-        }
-      }
-
-})
-app.get('/logout', function(req, res) {
+    if (userRole === "waiter") {
+      res.redirect("/waiter/" + username);
+    } else if (userRole === "admin") {
+      res.redirect("/days");
+    } else {
+      //flash message - access denied
+      res.redirect("/login");
+    }
+  }
 
 })
+
 app.get('/access_denied', function(req, res) {
-  res.render('/access_denied');
+  console.log("AAAAAAAAA");
+
+  res.render('access_denied');
+
 })
 
-      app.post('/logout', function(req, res) {
-        console.log("AAAAAAAAA");
-          if (!req.session.username) {
-            delete req.session.username;
-            res.redirect("/login");
-          }
-          })
+function IsAdmin(req, res, next) {
+
+  if (!req.session.username) {
+    //if (req.path !== "/login"){
+    return res.redirect("/login");
+    //}
+  }
+  if (req.session.userRole !== "admin") {
+    return res.redirect("/access_denied");
+  }
+  next()
+}
+
+
+app.get('/logout', function(req, res) {
+  console.log("AAAAAAAAA");
+
+  delete req.session.username;
+  res.redirect("/login");
+
+})
+
+function getuser(req, res, next) {
+  if (!req.session.username) {
+    //if (req.path !== "/login"){
+    return res.redirect("/login");
+    //}
+  }
+  if (req.session.userRole === "admin") {
+    return res.redirect("/access_denied")
+  }
+next()
+}
+
+
+// var users={
+//   "admin":"admin",
+//   "Nzulu":"waiter"
+// }
+//
+// var username=req.body.user;
+// var password=req.body.passwd;
 
 
 
-          app.post('/access_denied', function(req, res) {
-            console.log("AAAAAAAAA");
-
-            var userRole = users[req.body.username];
-            if(req.session.userRole!=="admin"){
-              res.redirect('/access_denied')
-            }
-
-        })
 
 
 
+app.use(function(err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send(err.stack)
+});
 
-
-
-
-
-        // var users={
-        //   "admin":"admin",
-        //   "Nzulu":"waiter"
-        // }
-        //
-        // var username=req.body.user;
-        // var password=req.body.passwd;
-
-
-
-
-
-
-    app.use(function(err, req, res, next) {
-      console.error(err.stack)
-      res.status(500).send(err.stack)
-    });
-
-    const port = process.env.PORT || 5001; app.listen(port, function() {
-      console.log('web app started on port:' + port);
-    });
+const port = process.env.PORT || 5001;
+app.listen(port, function() {
+  console.log('web app started on port:' + port);
+});
