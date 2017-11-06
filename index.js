@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({
 // app.use(bodyParser.json())
 
 
-app.get("/waiter/:username", getuser ,function(req, res, next) {
+app.get("/waiter/:username", getuser, function(req, res, next) {
   var username = req.params.username;
   // console.log("{{{{{{{{{{{{{{{}" +username);
 
@@ -69,7 +69,7 @@ app.get("/waiter/:username", getuser ,function(req, res, next) {
 
 
 
-app.post('/waiter/:username',getuser, function(req, res) {
+app.post('/waiter/:username', getuser, function(req, res) {
 
   var objectDays = {};
   var container = "";
@@ -145,7 +145,7 @@ function daysColoring(color) {
 }
 
 
-app.get('/days',IsAdmin, function(req, res) {
+app.get('/days', IsAdmin, function(req, res) {
   var shiftDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   var waiterDays = {
@@ -296,7 +296,7 @@ function getuser(req, res, next) {
   if (req.session.userRole === "admin") {
     return res.redirect("/access_denied")
   }
-next()
+  next()
 }
 
 
