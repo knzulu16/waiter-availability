@@ -1,4 +1,4 @@
-<button class="btn btn-success" id="primary" type="submit" name="" value='logout'><a href="/logout">logout</a></button>
+<button class="btn btn-success" id="primary" type="submit" name="" value='logout'><a href="/logout">Logout</a></button>
 <form id="daysForm" action="/days" method="get">
   <table frame="box" class="table table-bordered">
     <thead>
@@ -17,37 +17,39 @@
         <td class="{{SundayColor}}">
 
           {{#each waiterDays.Sunday.waiter}}
-            <li>{{this}}</li>
+            <li><a href="/waiter/{{this}}">{{this}}</li>
           {{/each}}
         </td>
         <td class="{{MondayColor}}">
           {{#each waiterDays.Monday.waiter}}
-            <li>{{this}}</li>
+            <li>
+                <a href="/waiter/{{this}}">{{this}}</a>
+            </li>
           {{/each}}
         </td>
         <td class="{{TuesdayColor}}">
           {{#each waiterDays.Tuesday.waiter}}
-            <li>{{this}}</li>
+            <li><a href="/waiter/{{this}}">{{this}}</li>
           {{/each}}
         </td>
         <td class="{{WednesdayColor}}">
           {{#each waiterDays.Wednesday.waiter}}
-            <li>{{this}}</li>
+            <li><a href="/waiter/{{this}}">{{this}}</li>
           {{/each}}
         </td>
         <td class="{{ThursdayColor}}">
           {{#each waiterDays.Thursday.waiter}}
-            <li>{{this}}</li>
+            <li><a href="/waiter/{{this}}">{{this}}</li>
           {{/each}}
         </td>
         <td class="{{FridayColor}}">
           {{#each waiterDays.Friday.waiter}}
-            <li>{{this}}</li>
+            <li><a href="/waiter/{{this}}">{{this}}</li>
           {{/each}}
         </td>
         <td class="{{SaturdayColor}}">
           {{#each waiterDays.Saturday.waiter}}
-            <li>{{this}}</li>
+            <li><a href="/waiter/{{this}}">{{this}}</li>
           {{/each}}
         </td>
       </ul>
