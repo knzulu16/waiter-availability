@@ -49,12 +49,13 @@ app.get("/waiter/:username", getuser, function(req, res, next) {
       if (err) {
         console.log(err);
       } else {
-        if (!shiftData) {
+        if (!shiftData.days) {
           res.render("index", {
             username: username,
             output: username
           })
         } else {
+
 
           res.render("index", {
             username: shiftData.username,
@@ -102,7 +103,6 @@ app.post('/waiter/:username', getuser, function(req, res) {
         } else {
 
           if (!results) {
-
 
             var newWaiter = new waiterShift.saveData({
               username: username,
@@ -230,33 +230,96 @@ app.get('/login', function(req, res) {
 var users = {
   "admin": "admin",
   "Nzulu": "waiter",
-  "Nolo": "waiter"
+  "Nolo": "waiter",
+  "Sivu":"waiter",
+  "Mponeng":"waiter",
+  "Gareth":"waiter",
+  "Amanda":"waiter",
+  "Viwe":"waiter"
 };
 app.post('/login', function(req, res) {
   // console.log(req);
   // res.send(req.body)
+  req.session.username=req.body.username;
   let username = req.body.username;
   var password = req.body.password;
-  var userRole = users[req.body.username];
-
-  if (userRole && req.body.password === "pass123") {
-    req.session.username = req.body.username;
-    req.session.userRole = userRole;
-    //console.log("**********");
-    console.log(userRole);
-    console.log('@@@@@@@@@@@');
-
-    if (userRole === "waiter") {
-      res.redirect("/waiter/" + username);
-    } else if (userRole === "admin") {
-      res.redirect("/days");
-    } else {
-      //flash message - access denied
-      res.redirect("/login");
+  waiterShift.saveData.findOne({
+    username:username,
+    password:password
+  },function(err,user){
+    if(err){
+      return err;
+    }else if(!user){
+      res.redirect('/access_denied');
+    }else if(user.username==='admin'){
+      res.redirect('/days');
+    }else{
+      res.redirect("/waiter/"+username);
     }
-  }
+  })
+
+
+
+
+
+  // var userRole = users[req.body.username];
+  //
+  // if (userRole && req.body.password === "pass123") {
+  //   req.session.username = req.body.username;
+  //   req.session.userRole = userRole;
+  //   //console.log("**********");
+  //   console.log(userRole);
+  //   console.log('@@@@@@@@@@@');
+  //
+  //   if (userRole === "waiter") {
+  //     res.redirect("/waiter/" + username);
+  //   } else if (userRole === "admin") {
+  //     res.redirect("/days");
+  //   } else {
+  //     //flash message - access denied
+  //     res.redirect("/login");
+  //   }
+  // }
 
 })
+app.get('/register', function(req,res){
+  res.render("register");
+})
+app.post('/register',function(req,res){
+  var psw = req.body.password;
+  var email = req.body.email;
+  var username = req.body.username;
+    waiterShift.saveData.findOne({
+    password: psw,
+    email: email
+  }, function(err, registered) {
+    if (err) {
+      return err;
+    } else if (!registered) {
+      var storingNewWaiter = new waiterShift.saveData({
+        password: psw,
+        email: email,
+        username: username
+      });
+      storingNewWaiter.save(function(err, newRegisterWaiter) {
+        if (err) {
+          console.log('********',newRegisterWaiter);
+          return err;
+        } else {
+
+          res.redirect('/login')
+        }
+      })
+    }
+  })
+
+
+})
+
+
+
+
+
 
 app.get('/access_denied', function(req, res) {
   console.log("AAAAAAAAA");
@@ -272,7 +335,7 @@ function IsAdmin(req, res, next) {
     return res.redirect("/login");
     //}
   }
-  if (req.session.userRole !== "admin") {
+  if (req.session.username !== "admin") {
     return res.redirect("/access_denied");
   }
   next()
@@ -293,7 +356,7 @@ function getuser(req, res, next) {
     return res.redirect("/login");
     //}
   }
-  if (req.session.userRole === "admin") {
+  if (req.session.username === "admin") {
     return res.redirect("/access_denied")
   }
   next()

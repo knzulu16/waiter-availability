@@ -22,6 +22,8 @@ mongoose.connect(mongoURL,{
 
 
 exports.saveData=mongoose.model('saveData',{
+  password:String,
+  email:String,
   username:String,
   days: {
     Sunday:Boolean,

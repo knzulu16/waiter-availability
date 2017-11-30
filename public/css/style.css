@@ -1,6 +1,23 @@
+
+.login {
+  background: #eceeee;
+  border: 1px solid #42464b;
+  border-radius: 6px;
+  height: 257px;
+  margin:auto 0;
+  width: 298px;
+
+}
+
+.daySh{
+  margin-right:80%;
+  margin-bottom:50%;
+}
+
+
 #primary{
   margin-left: 90%;
- 
+
 }
 
 .days.solid{
