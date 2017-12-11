@@ -70,8 +70,7 @@ waiter-availability/models.js/index.js/procfile/package.json/public/css/style.cs
 ### How to run the APP
 
 - Run on the server side
+- Fork and clone
+- Run npm install
 - Run on localhost:5001
 - Use nodemon on the terminal
-'''
-npm install
-'''
